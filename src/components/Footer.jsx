@@ -2,7 +2,7 @@ import { Truck, Phone, Mail, MapPin, Facebook, Instagram } from 'lucide-react'
 import { CONTACT } from '../data/siteData'
 import logo from '../assets/Logo.png'
 
-const quickLinks = ['Home', 'About Us', 'Services', 'Industries', 'Branches', 'Gallery', 'Contact Us']
+const quickLinks = ['Home', 'About Us', 'Services', 'Industries', 'Gallery', 'Contact Us']
 const quickSections = ['home', 'about', 'services', 'industries', 'industries', 'gallery', 'contact']
 const ourServices = [
   'Household Relocation',
