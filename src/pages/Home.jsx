@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { Star, ArrowRight, MapPin as MapPinIcon, Plus, Minus, ShieldCheck, LocateFixed, Headphones, Package, Truck as TruckIcon, Sparkles } from 'lucide-react'
+import { Star, ArrowRight, MapPin as MapPinIcon, Plus, Minus, ShieldCheck, Headphones, Package, Truck as TruckIcon, Sparkles } from 'lucide-react'
 import { useState, useEffect, useRef } from 'react'
 import Reveal from '../components/Reveal'
 import Icon from '../components/Icon'
@@ -72,8 +72,13 @@ function CountUp({ value }) {
       ([entry]) => {
         if (entry.isIntersecting && !started) {
           setStarted(true)
-          const numeric = parseInt(String(value).replace(/[^0-9]/g, ''), 10) || 0
-          const suffix = String(value).replace(/[0-9,]/g, '')
+          // Only the LEADING number (and its commas) counts up; anything
+          // after that (e.g. '/7' in '24/7', '+' in '10,000+') is a fixed
+          // suffix appended as-is, so values like '24/7' no longer get
+          // mangled into '247/'.
+          const match = String(value).match(/^([0-9,]+)(.*)$/)
+          const numeric = match ? parseInt(match[1].replace(/,/g, ''), 10) || 0 : 0
+          const suffix = match ? match[2] : String(value)
           const duration = 1200
           const start = performance.now()
           const tick = (now) => {

@@ -72,7 +72,7 @@ export const WHY_CHOOSE_US = [
   { title: 'Affordable Pricing', desc: 'Best prices with no hidden charges', icon: 'Tag' },
   { title: 'Damage Protection', desc: 'Full insurance & damage coverage', icon: 'ShieldCheck' },
   { title: 'On-Time Delivery', desc: 'Timely delivery, every time', icon: 'Clock' },
-  { title: 'Real Time Tracking', desc: 'Track your shipment anytime, anywhere', icon: 'MapPinned' },
+  { title: '24/7 Call Support', desc: 'Always reachable on call, day or night', icon: 'Headphones' },
 ]
 
 export const STATS = [
@@ -106,7 +106,7 @@ export const FAQS = [
   { q: 'Do you provide insurance for goods?', a: 'Yes, every move is covered with transit insurance so your belongings are fully protected.' },
   { q: 'How many days are required for delivery?', a: 'Local moves are usually completed within a day, while intercity moves take 2-7 days depending on distance.' },
   { q: 'Do you transport cars and bikes?', a: 'Yes, we offer dedicated car and bike transportation with secure loading across India.' },
-  { q: 'Can I track my shipment?', a: 'Absolutely — every shipment comes with real-time GPS tracking so you always know where your goods are.' },
+  { q: 'How can I reach you for updates?', a: 'Our team is available 24/7 on call — just phone us anytime and we will update you on your shipment status.' },
 ]
 
 export const JOURNEY = [
@@ -114,7 +114,7 @@ export const JOURNEY = [
   { year: '2018', title: 'Going Regional', desc: 'Expanded services to major cities across Maharashtra & Gujarat.', icon: 'Package' },
   { year: '2020', title: 'Pan India Reach', desc: 'Built a strong nationwide network covering 100+ cities.', icon: 'Truck' },
   { year: '2022', title: '5,000+ Happy Customers', desc: 'Crossed a major milestone in trust and customer satisfaction.', icon: 'Users' },
-  { year: '2024', title: 'Modern Fleet', desc: 'Upgraded to a modern, GPS-enabled fleet for real-time tracking.', icon: 'Truck' },
+  { year: '2024', title: 'Modern Fleet', desc: 'Upgraded to a modern, well-maintained fleet for reliable moves.', icon: 'Truck' },
   { year: '2026', title: '10 Years Strong', desc: 'A decade of trust — 5,000+ successful moves and counting.', icon: 'Trophy' },
 ]
 
