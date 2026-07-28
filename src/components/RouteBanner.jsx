@@ -117,7 +117,11 @@ export default function RouteBanner() {
         <Sun />
         <Clouds />
         <Hills />
-        <div className="absolute left-1/2 -translate-x-1/2 bottom-[34px]">
+        {/* was bottom-[34px] — that gap is what left the truck floating
+            above the road. Pinning it near the very bottom of the sky
+            section means the wheels land exactly where the guard rail
+            (start of the road) begins. */}
+        <div className="absolute left-1/2 -translate-x-1/2 -bottom-2">
           <TruckSVG />
         </div>
       </div>

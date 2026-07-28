@@ -1,4 +1,3 @@
-import { NavLink } from 'react-router-dom'
 import { ArrowRight, ShieldCheck, Clock, MapPin, Quote } from 'lucide-react'
 import Reveal from '../components/Reveal'
 import Icon from '../components/Icon'
@@ -6,7 +5,7 @@ import aboutHero from '../assets/about-hero-truck.png'
 import teamPacking from '../assets/team-packing.png'
 import { STATS, WHY_CHOOSE_US, VALUES, JOURNEY } from '../data/siteData'
 
-export default function About() {
+export default function About({ scrollToSection }) {
   return (
     <div>
       {/* HERO */}
@@ -62,9 +61,12 @@ export default function About() {
             <p className="text-gray-500 text-sm leading-relaxed mb-6">
               We combine experienced professionals, modern equipment and proven processes to ensure your belongings reach their destination safely and on time.
             </p>
-            <NavLink to="/contact" className="inline-flex items-center gap-2 bg-navy text-white font-semibold text-sm px-5 py-3 rounded-lg hover:bg-navy-dark transition-colors">
+            <button 
+              onClick={() => scrollToSection('contact')}
+              className="inline-flex items-center gap-2 bg-navy text-white font-semibold text-sm px-5 py-3 rounded-lg hover:bg-navy-dark transition-colors cursor-pointer"
+            >
               Get to Know Us <ArrowRight size={15} />
-            </NavLink>
+            </button>
           </Reveal>
           <Reveal delay={0.15} className="relative">
             <div className="rounded-2xl overflow-hidden shadow-xl">

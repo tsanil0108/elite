@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion'
-import { NavLink } from 'react-router-dom'
 import { Star, ArrowRight, MapPin as MapPinIcon, Plus, Minus, ShieldCheck, LocateFixed, Headphones, Package, Truck as TruckIcon, Sparkles } from 'lucide-react'
 import { useState, useEffect, useRef } from 'react'
 import Reveal from '../components/Reveal'
@@ -125,7 +124,7 @@ function FaqItem({ q, a, defaultOpen = false }) {
   )
 }
 
-export default function Home() {
+export default function Home({ scrollToSection }) {
   return (
     <div>
       {/* HERO */}
@@ -172,9 +171,12 @@ export default function Home() {
                 whileHover={{ y: -3, scale: 1.03, boxShadow: '0 12px 28px rgba(247,121,31,0.4)' }}
                 whileTap={{ scale: 0.97 }}
               >
-                <NavLink to="/contact" className="bg-orange hover:bg-orange-dark text-white font-semibold px-6 py-3.5 rounded-lg flex items-center gap-2 shadow-lg shadow-orange-500/20 transition-colors">
+                <button 
+                  onClick={() => scrollToSection('contact')}
+                  className="bg-orange hover:bg-orange-dark text-white font-semibold px-6 py-3.5 rounded-lg flex items-center gap-2 shadow-lg shadow-orange-500/20 transition-colors"
+                >
                   Get Free Quote <ArrowRight size={18} />
-                </NavLink>
+                </button>
               </motion.div>
             </motion.div>
             <motion.div
@@ -272,9 +274,12 @@ export default function Home() {
                     </motion.div>
                     <h3 className="font-semibold text-navy text-sm mb-1.5">{s.title}</h3>
                     <p className="text-xs text-gray-500 leading-relaxed">{s.desc}</p>
-                    <NavLink to="/services" className="inline-flex items-center gap-1 text-orange text-xs font-semibold mt-3 hover:gap-2 transition-all">
+                    <button 
+                      onClick={() => scrollToSection('services')}
+                      className="inline-flex items-center gap-1 text-orange text-xs font-semibold mt-3 hover:gap-2 transition-all cursor-pointer"
+                    >
                       Learn More <ArrowRight size={13} />
-                    </NavLink>
+                    </button>
                   </motion.div>
                 </Reveal>
               ))}
@@ -339,9 +344,12 @@ export default function Home() {
                 <p className="text-[10px] tracking-widest text-orange font-semibold mb-2">READY TO MOVE?</p>
                 <h3 className="font-display font-bold text-white text-lg mb-4">Get Your Free<br />Quote Now!</h3>
                 <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="inline-block">
-                  <NavLink to="/contact" className="inline-flex items-center gap-2 bg-orange text-white text-xs font-semibold px-4 py-2.5 rounded-lg hover:bg-orange-dark transition-colors">
+                  <button 
+                    onClick={() => scrollToSection('contact')}
+                    className="inline-flex items-center gap-2 bg-orange text-white text-xs font-semibold px-4 py-2.5 rounded-lg hover:bg-orange-dark transition-colors cursor-pointer"
+                  >
                     Get Free Quote <ArrowRight size={14} />
-                  </NavLink>
+                  </button>
                 </motion.div>
               </div>
               <motion.img
@@ -405,9 +413,12 @@ export default function Home() {
               ))}
             </div>
             <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }} className="inline-block mt-5">
-              <NavLink to="/gallery" className="inline-flex items-center gap-2 bg-navy text-white text-xs font-semibold px-5 py-3 rounded-lg hover:bg-navy-dark transition-colors">
+              <button 
+                onClick={() => scrollToSection('gallery')}
+                className="inline-flex items-center gap-2 bg-navy text-white text-xs font-semibold px-5 py-3 rounded-lg hover:bg-navy-dark transition-colors cursor-pointer"
+              >
                 View More Photos <ArrowRight size={14} />
-              </NavLink>
+              </button>
             </motion.div>
           </Reveal>
 
@@ -459,9 +470,12 @@ export default function Home() {
               </div>
             </motion.div>
             <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }} className="inline-block mt-5">
-              <NavLink to="/contact" className="inline-flex items-center gap-2 border-2 border-navy text-navy text-xs font-semibold px-5 py-3 rounded-lg hover:bg-navy hover:text-white transition-colors">
+              <button 
+                onClick={() => scrollToSection('contact')}
+                className="inline-flex items-center gap-2 border-2 border-navy text-navy text-xs font-semibold px-5 py-3 rounded-lg hover:bg-navy hover:text-white transition-colors cursor-pointer"
+              >
                 Get a Free Quote <ArrowRight size={14} />
-              </NavLink>
+              </button>
             </motion.div>
           </Reveal>
         </div>

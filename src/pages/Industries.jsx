@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import { NavLink } from 'react-router-dom'
 import { ArrowRight } from 'lucide-react'
 import Reveal from '../components/Reveal'
 import Icon from '../components/Icon'
@@ -16,7 +15,7 @@ const INDUSTRIES = [
   { title: 'Manufacturing', desc: 'Heavy machinery and industrial equipment logistics.', icon: 'Factory' },
 ]
 
-export default function Industries() {
+export default function Industries({ scrollToSection }) {
   // Auto-cycling highlight through the industries grid — runs on its own
   const [activeIndustry, setActiveIndustry] = useState(0)
   useEffect(() => {
@@ -121,9 +120,12 @@ export default function Industries() {
             <h3 className="font-display text-2xl font-bold text-white mb-2">Don't see your industry listed?</h3>
             <p className="text-gray-300 text-sm">We build custom relocation plans for any business, of any size.</p>
           </div>
-          <NavLink to="/contact" className="bg-orange hover:bg-orange-dark text-white font-semibold px-6 py-3 rounded-lg flex items-center gap-2 transition-colors shrink-0 relative z-10">
+          <button 
+            onClick={() => scrollToSection('contact')}
+            className="bg-orange hover:bg-orange-dark text-white font-semibold px-6 py-3 rounded-lg flex items-center gap-2 transition-colors shrink-0 relative z-10 cursor-pointer"
+          >
             Talk to Our Team <ArrowRight size={16} />
-          </NavLink>
+          </button>
         </Reveal>
       </section>
     </div>

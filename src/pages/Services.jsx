@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import { NavLink } from 'react-router-dom'
 import { ArrowRight, Phone } from 'lucide-react'
 import Reveal from '../components/Reveal'
 import Icon from '../components/Icon'
@@ -7,7 +6,7 @@ import servicesHero from '../assets/services-hero.png'
 import deliveryGuy from '../assets/delivery-guy.png'
 import { SERVICES, PROCESS_STEPS, WHY_CHOOSE_US, CONTACT } from '../data/siteData'
 
-export default function Services() {
+export default function Services({ scrollToSection }) {
   // Auto-cycling highlight through the services grid (runs on its own, no hover needed)
   const [activeService, setActiveService] = useState(0)
   useEffect(() => {
@@ -92,9 +91,12 @@ export default function Services() {
                 </div>
                 <h3 className="font-semibold text-navy text-[15px] mb-2">{s.title}</h3>
                 <p className="text-xs text-gray-500 leading-relaxed mb-3">{s.desc}</p>
-                <NavLink to="/contact" className="inline-flex items-center gap-1 text-orange text-xs font-semibold hover:gap-2 transition-all">
+                <button 
+                  onClick={() => scrollToSection('contact')}
+                  className="inline-flex items-center gap-1 text-orange text-xs font-semibold hover:gap-2 transition-all cursor-pointer"
+                >
                   Learn More <ArrowRight size={13} />
-                </NavLink>
+                </button>
               </Reveal>
             )
           })}
@@ -175,9 +177,12 @@ export default function Services() {
             <a href={`tel:${CONTACT.phone1}`} className="flex items-center gap-2 text-white text-sm font-semibold">
               <Phone size={16} className="text-orange animate-pulse" /> {CONTACT.phone1}
             </a>
-            <NavLink to="/contact" className="bg-orange hover:bg-orange-dark text-white font-semibold px-6 py-3 rounded-lg flex items-center gap-2 transition-colors">
+            <button 
+              onClick={() => scrollToSection('contact')}
+              className="bg-orange hover:bg-orange-dark text-white font-semibold px-6 py-3 rounded-lg flex items-center gap-2 transition-colors cursor-pointer"
+            >
               Get Free Quote <ArrowRight size={16} />
-            </NavLink>
+            </button>
           </div>
           <img src={deliveryGuy} alt="" className="hidden lg:block w-28 absolute right-8 -bottom-2 opacity-90 float-slower" />
         </Reveal>

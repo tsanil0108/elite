@@ -1,8 +1,8 @@
 import { motion } from 'framer-motion'
-import { Phone } from 'lucide-react'
+import { Phone, ArrowUp } from 'lucide-react'
+import { useState, useEffect } from 'react'
 import { CONTACT } from '../data/siteData'
 
-// Build a wa.me link from the phone number in siteData (assumes India +91)
 function buildWhatsAppLink(phone) {
   const digits = phone.replace(/\D/g, '')
   return `https://wa.me/91${digits}`
@@ -16,12 +16,30 @@ function WhatsAppIcon(props) {
   )
 }
 
-export default function FloatingButtons() {
+export default function FloatingButtons({ scrollToSection }) {
   const whatsappLink = buildWhatsAppLink(CONTACT.phone1)
+  const [showScrollTop, setShowScrollTop] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowScrollTop(window.scrollY > 300)
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  const handleScrollToTop = () => {
+    if (scrollToSection) {
+      scrollToSection('home')
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
+  }
 
   return (
     <div className="fixed bottom-6 right-5 z-[60] flex flex-col items-end gap-3">
-      {/* Call button */}
+      {/* Call Button */}
       <motion.a
         href={`tel:${CONTACT.phone1}`}
         initial={{ opacity: 0, scale: 0.6, x: 30 }}
@@ -43,7 +61,7 @@ export default function FloatingButtons() {
         </span>
       </motion.a>
 
-      {/* WhatsApp button */}
+      {/* WhatsApp Button */}
       <motion.a
         href={whatsappLink}
         target="_blank"
@@ -66,6 +84,31 @@ export default function FloatingButtons() {
           Chat on WhatsApp
         </span>
       </motion.a>
+
+      {/* Scroll to Top Button */}
+      {showScrollTop && (
+        <motion.button
+          onClick={handleScrollToTop}
+          initial={{ opacity: 0, scale: 0.6, x: 30 }}
+          animate={{ opacity: 1, scale: 1, x: 0 }}
+          exit={{ opacity: 0, scale: 0.6, x: 30 }}
+          transition={{ type: 'spring', stiffness: 260, damping: 18 }}
+          whileHover={{ scale: 1.12 }}
+          whileTap={{ scale: 0.92 }}
+          className="group relative w-13 h-13 sm:w-14 sm:h-14 rounded-full bg-orange text-white flex items-center justify-center shadow-lg shadow-orange/30"
+          aria-label="Scroll to top"
+        >
+          <motion.span
+            className="absolute inset-0 rounded-full bg-orange"
+            animate={{ scale: [1, 1.5, 1], opacity: [0.5, 0, 0.5] }}
+            transition={{ duration: 2.2, repeat: Infinity, ease: 'easeOut', delay: 0.2 }}
+          />
+          <ArrowUp size={22} className="relative z-10" />
+          <span className="pointer-events-none absolute right-full mr-3 top-1/2 -translate-y-1/2 whitespace-nowrap bg-orange text-white text-xs font-semibold px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 translate-x-2 group-hover:translate-x-0 transition-all duration-200">
+            Back to Top
+          </span>
+        </motion.button>
+      )}
     </div>
   )
 }

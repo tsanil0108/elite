@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import {
   Headphones, ShieldCheck, Clock, MapPin, Phone, Mail, Send,
-  Facebook, Instagram, Twitter, Youtube, Linkedin, CheckCircle2, ArrowUpRight,
+  Facebook, Instagram, CheckCircle2, ArrowUpRight,
 } from 'lucide-react'
 import Reveal from '../components/Reveal'
 import contactHero from '../assets/contact-hero-truck.png'
@@ -21,12 +21,18 @@ const infoCards = [
   { title: 'Working Hours', icon: Clock, lines: [CONTACT.hours] },
 ]
 
-export default function Contact() {
+const socialLinks = [
+  { Icon: Facebook, href: 'https://www.facebook.com/share/1936Y4u5y9/' },
+  { Icon: Instagram, href: 'https://www.instagram.com/elitecargopackersandmovers06?utm_source=qr&igsh=YmlmNmJwenBoamlm' },
+]
+
+export default function Contact({ scrollToSection }) {
   const [form, setForm] = useState({
     name: '', mobile: '', email: '', from: '', to: '', date: '', service: '', message: '',
   })
   const [errors, setErrors] = useState({})
   const [submitted, setSubmitted] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   const update = (k) => (e) => setForm((f) => ({ ...f, [k]: e.target.value }))
 
@@ -42,12 +48,46 @@ export default function Contact() {
     return Object.keys(e).length === 0
   }
 
-  const handleSubmit = (ev) => {
+  const handleSubmit = async (ev) => {
     ev.preventDefault()
-    if (validate()) {
-      setSubmitted(true)
-      setForm({ name: '', mobile: '', email: '', from: '', to: '', date: '', service: '', message: '' })
-      setTimeout(() => setSubmitted(false), 5000)
+    if (!validate()) return
+
+    setLoading(true)
+
+    try {
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          access_key: '123c63a7-388e-4f07-b8c8-b6924f5ee2f6',
+          subject: 'New Quote Request - Elite Cargo',
+          from_name: 'Elite Cargo Website',
+          name: form.name,
+          email: form.email,
+          phone: form.mobile,
+          from_city: form.from,
+          to_city: form.to,
+          moving_date: form.date || 'Not specified',
+          service_type: form.service || 'General inquiry',
+          message: form.message,
+        }),
+      })
+
+      const data = await response.json()
+
+      if (data.success) {
+        setSubmitted(true)
+        setForm({ name: '', mobile: '', email: '', from: '', to: '', date: '', service: '', message: '' })
+        setTimeout(() => setSubmitted(false), 5000)
+      } else {
+        alert('Error sending message. Please try again.')
+        console.error('Web3Forms error:', data)
+      }
+    } catch (error) {
+      console.error('Form submission error:', error)
+      alert('Error sending message. Please try again.')
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -97,7 +137,7 @@ export default function Contact() {
             <img src={contactHero} alt="Elite Cargo delivery truck by the waterfront" className="w-full h-auto object-cover" />
             <a
               href={`tel:${CONTACT.phone1}`}
-              className="absolute bottom-4 left-4 right-4 sm:left-auto sm:right-4 sm:w-auto bg-white/95 backdrop-blur rounded-xl px-4 py-3 flex items-center gap-3 shadow-lg"
+              className="absolute bottom-4 left-4 right-4 sm:left-auto sm:right-4 sm:w-auto bg-white/95 backdrop-blur rounded-xl px-4 py-3 flex items-center gap-3 shadow-lg hover:shadow-xl transition-shadow cursor-pointer"
             >
               <div className="w-9 h-9 rounded-full bg-orange flex items-center justify-center text-white shrink-0">
                 <Phone size={15} />
@@ -132,29 +172,70 @@ export default function Contact() {
 
             <form onSubmit={handleSubmit} noValidate className="grid sm:grid-cols-2 gap-4">
               <div>
-                <input placeholder="Your Name *" value={form.name} onChange={update('name')} className={inputClass(errors.name)} />
+                <input 
+                  placeholder="Your Name *" 
+                  value={form.name} 
+                  onChange={update('name')} 
+                  className={inputClass(errors.name)}
+                  disabled={loading}
+                />
                 {errors.name && <p className="text-[11px] text-red-500 mt-1">{errors.name}</p>}
               </div>
               <div>
-                <input placeholder="Mobile Number *" value={form.mobile} onChange={update('mobile')} className={inputClass(errors.mobile)} />
+                <input 
+                  placeholder="Mobile Number *" 
+                  value={form.mobile} 
+                  onChange={update('mobile')} 
+                  className={inputClass(errors.mobile)}
+                  disabled={loading}
+                />
                 {errors.mobile && <p className="text-[11px] text-red-500 mt-1">{errors.mobile}</p>}
               </div>
               <div>
-                <input placeholder="Email Address *" value={form.email} onChange={update('email')} className={inputClass(errors.email)} />
+                <input 
+                  placeholder="Email Address *" 
+                  value={form.email} 
+                  onChange={update('email')} 
+                  className={inputClass(errors.email)}
+                  disabled={loading}
+                />
                 {errors.email && <p className="text-[11px] text-red-500 mt-1">{errors.email}</p>}
               </div>
               <div>
-                <input placeholder="Moving From *" value={form.from} onChange={update('from')} className={inputClass(errors.from)} />
+                <input 
+                  placeholder="Moving From *" 
+                  value={form.from} 
+                  onChange={update('from')} 
+                  className={inputClass(errors.from)}
+                  disabled={loading}
+                />
                 {errors.from && <p className="text-[11px] text-red-500 mt-1">{errors.from}</p>}
               </div>
               <div>
-                <input placeholder="Moving To *" value={form.to} onChange={update('to')} className={inputClass(errors.to)} />
+                <input 
+                  placeholder="Moving To *" 
+                  value={form.to} 
+                  onChange={update('to')} 
+                  className={inputClass(errors.to)}
+                  disabled={loading}
+                />
                 {errors.to && <p className="text-[11px] text-red-500 mt-1">{errors.to}</p>}
               </div>
               <div>
-                <input type="date" value={form.date} onChange={update('date')} className={inputClass()} />
+                <input 
+                  type="date" 
+                  value={form.date} 
+                  onChange={update('date')} 
+                  className={inputClass()}
+                  disabled={loading}
+                />
               </div>
-              <select value={form.service} onChange={update('service')} className={`${inputClass()} sm:col-span-2 text-gray-500`}>
+              <select 
+                value={form.service} 
+                onChange={update('service')} 
+                className={`${inputClass()} sm:col-span-2 text-gray-500`}
+                disabled={loading}
+              >
                 <option value="">Type of Service</option>
                 <option>Household Relocation</option>
                 <option>Office Shifting</option>
@@ -164,11 +245,22 @@ export default function Contact() {
                 <option>International Moving</option>
               </select>
               <div className="sm:col-span-2">
-                <textarea placeholder="Your Message *" rows={4} value={form.message} onChange={update('message')} className={inputClass(errors.message)} />
+                <textarea 
+                  placeholder="Your Message *" 
+                  rows={4} 
+                  value={form.message} 
+                  onChange={update('message')} 
+                  className={inputClass(errors.message)}
+                  disabled={loading}
+                />
                 {errors.message && <p className="text-[11px] text-red-500 mt-1">{errors.message}</p>}
               </div>
-              <button type="submit" className="sm:col-span-2 inline-flex items-center justify-center gap-2 bg-orange hover:bg-orange-dark text-white font-semibold px-6 py-3.5 rounded-lg transition-colors shadow-lg shadow-orange-500/20 hover:-translate-y-0.5 duration-200">
-                Send Message <Send size={16} />
+              <button 
+                type="submit" 
+                disabled={loading}
+                className="sm:col-span-2 inline-flex items-center justify-center gap-2 bg-orange hover:bg-orange-dark text-white font-semibold px-6 py-3.5 rounded-lg transition-colors shadow-lg shadow-orange-500/20 hover:-translate-y-0.5 duration-200 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+              >
+                {loading ? 'Sending...' : 'Send Message'} <Send size={16} />
               </button>
             </form>
           </Reveal>
@@ -184,7 +276,7 @@ export default function Contact() {
                   {infoCards.map(({ title, icon: Icon, lines, href }) => {
                     const Wrapper = href ? 'a' : 'div'
                     return (
-                      <Wrapper key={title} {...(href ? { href } : {})} className="flex items-start gap-4 relative group">
+                      <Wrapper key={title} {...(href ? { href } : {})} className="flex items-start gap-4 relative group cursor-pointer">
                         <div className="w-11 h-11 rounded-full bg-navy flex items-center justify-center text-white shrink-0 relative z-10 group-hover:bg-orange transition-colors">
                           <Icon size={17} />
                         </div>
@@ -225,7 +317,7 @@ export default function Contact() {
                   href={`https://www.google.com/maps?q=${encodeURIComponent(CONTACT.address)}`}
                   target="_blank"
                   rel="noreferrer"
-                  className="absolute bottom-3 right-3 bg-navy text-white text-[11px] font-semibold px-3 py-2 rounded-lg flex items-center gap-1.5 shadow-lg hover:bg-navy-dark transition-colors"
+                  className="absolute bottom-3 right-3 bg-navy text-white text-[11px] font-semibold px-3 py-2 rounded-lg flex items-center gap-1.5 shadow-lg hover:bg-navy-dark transition-colors cursor-pointer"
                 >
                   Get Directions <ArrowUpRight size={13} />
                 </a>
@@ -233,9 +325,15 @@ export default function Contact() {
 
               <h3 className="text-sm font-semibold text-navy mt-6 mb-3">Connect With Us</h3>
               <div className="flex gap-3">
-                {[Facebook, Instagram, Twitter, Youtube, Linkedin].map((I, i) => (
-                  <a key={i} href="#" className="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center text-navy hover:bg-navy hover:text-white hover:border-navy transition-colors">
-                    <I size={16} />
+                {socialLinks.map(({ Icon, href }, i) => (
+                  <a
+                    key={i}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center text-navy hover:bg-navy hover:text-white hover:border-navy transition-colors cursor-pointer"
+                  >
+                    <Icon size={16} />
                   </a>
                 ))}
               </div>
