@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { Truck, Home, Info, Briefcase, Building2, Images, Mail } from 'lucide-react'
+import { Truck, Home, Info, Briefcase, Building2, Image, Mail } from 'lucide-react'
 import { useState, useEffect } from 'react'
 
 /**
@@ -28,7 +28,7 @@ export default function TrackProgress({
     { id: 'about', label: 'About', icon: Info },
     { id: 'services', label: 'Services', icon: Briefcase },
     { id: 'industries', label: 'Industries', icon: Building2 },
-    { id: 'gallery', label: 'Gallery', icon: Images },
+    { id: 'gallery', label: 'Gallery', icon: Image },
     { id: 'contact', label: 'Contact', icon: Mail },
   ]
 
