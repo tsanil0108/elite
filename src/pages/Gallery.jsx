@@ -1,7 +1,8 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ChevronDown } from 'lucide-react'
+import { X, ChevronLeft, ChevronRight } from 'lucide-react'
 import Reveal from '../components/Reveal'
+import CoverflowCarousel from '../components/CoverflowCarousel'
 import galleryHero from '../assets/gallery-hero-truck.png'
 import gallery1 from '../assets/gallery-1.png'
 import gallery2 from '../assets/gallery-2.png'
@@ -30,10 +31,25 @@ const PHOTOS = [
 
 export default function Gallery() {
   const [active, setActive] = useState('All')
-  const [count, setCount] = useState(10)
+  const [lightboxIndex, setLightboxIndex] = useState(null)
 
-  const filtered = active === 'All' ? PHOTOS : PHOTOS.filter((p) => p.cat === active)
-  const visible = filtered.slice(0, count)
+  const filtered = useMemo(
+    () => (active === 'All' ? PHOTOS : PHOTOS.filter((p) => p.cat === active)),
+    [active]
+  )
+
+  // Shape the filtered photos for the carousel's expected prop shape
+  const carouselItems = useMemo(
+    () => filtered.map((p) => ({ image: p.src, title: p.alt, category: p.cat })),
+    [filtered]
+  )
+
+  const openLightbox = (i) => setLightboxIndex(i)
+  const closeLightbox = () => setLightboxIndex(null)
+  const stepLightbox = (dir) => {
+    if (lightboxIndex === null) return
+    setLightboxIndex((i) => (i + dir + filtered.length) % filtered.length)
+  }
 
   return (
     <div>
@@ -55,14 +71,14 @@ export default function Gallery() {
         </div>
       </section>
 
-      {/* FILTERS + GRID */}
+      {/* FILTERS + COVERFLOW */}
       <section className="py-16">
-        <div className="max-w-7xl mx-auto px-6 lg:px-10">
-          <Reveal className="flex flex-wrap gap-3 mb-10">
+        <div className="max-w-6xl mx-auto px-6 lg:px-10">
+          <Reveal className="flex flex-wrap gap-3 mb-10 justify-center">
             {GALLERY_CATEGORIES.map((c) => (
               <button
                 key={c}
-                onClick={() => { setActive(c); setCount(10) }}
+                onClick={() => setActive(c)}
                 className={`text-xs font-semibold px-4 py-2.5 rounded-lg border transition-colors ${
                   active === c
                     ? 'bg-navy text-white border-navy'
@@ -74,39 +90,85 @@ export default function Gallery() {
             ))}
           </Reveal>
 
-          <motion.div layout className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
-            <AnimatePresence mode="popLayout">
-              {visible.map((p, i) => (
-                <motion.div
-                  key={p.src}
-                  layout
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.9 }}
-                  transition={{ duration: 0.35, delay: i * 0.03 }}
-                  className="rounded-xl overflow-hidden aspect-[4/3] group relative shadow-soft"
-                >
-                  <img src={p.src} alt={p.alt} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-navy/70 via-navy/0 to-navy/0 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-3">
-                    <span className="text-white text-[11px] font-medium">{p.cat}</span>
-                  </div>
-                </motion.div>
-              ))}
-            </AnimatePresence>
-          </motion.div>
-
-          {count < filtered.length && (
-            <div className="flex justify-center mt-10">
-              <button
-                onClick={() => setCount((c) => c + 10)}
-                className="inline-flex items-center gap-2 border-2 border-navy text-navy text-sm font-semibold px-6 py-3 rounded-lg hover:bg-navy hover:text-white transition-colors"
-              >
-                Load More Photos <ChevronDown size={16} />
-              </button>
-            </div>
-          )}
+          <Reveal delay={0.1}>
+            {carouselItems.length > 0 ? (
+              <>
+                <CoverflowCarousel items={carouselItems} onSelect={openLightbox} autoPlayMs={3200} />
+                {/* road strip — ties the carousel to the truck/route motif used elsewhere on the site */}
+                <div className="mt-6 h-2 max-w-md mx-auto rounded-full bg-navy/10 overflow-hidden">
+                  <div className="h-full w-full route-banner-road opacity-40" />
+                </div>
+                <p className="text-center text-xs text-gray-400 mt-3">
+                  Tap a photo to view it full size — hover the carousel to pause and browse.
+                </p>
+              </>
+            ) : (
+              <p className="text-center text-sm text-gray-400 py-16">No photos in this category yet.</p>
+            )}
+          </Reveal>
         </div>
       </section>
+
+      {/* LIGHTBOX */}
+      <AnimatePresence>
+        {lightboxIndex !== null && filtered[lightboxIndex] && (
+          <motion.div
+            className="fixed inset-0 z-[100] bg-navy/90 backdrop-blur-sm flex items-center justify-center px-4"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={closeLightbox}
+          >
+            <button
+              onClick={closeLightbox}
+              aria-label="Close"
+              className="absolute top-6 right-6 w-11 h-11 rounded-full bg-white/10 hover:bg-orange text-white flex items-center justify-center transition-colors"
+            >
+              <X size={20} />
+            </button>
+
+            <button
+              onClick={(e) => { e.stopPropagation(); stepLightbox(-1) }}
+              aria-label="Previous photo"
+              className="absolute left-4 md:left-8 w-11 h-11 rounded-full bg-white/10 hover:bg-orange text-white flex items-center justify-center transition-colors"
+            >
+              <ChevronLeft size={22} />
+            </button>
+
+            <motion.div
+              key={lightboxIndex}
+              initial={{ opacity: 0, scale: 0.92 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.92 }}
+              transition={{ duration: 0.25 }}
+              className="max-w-3xl w-full"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="rounded-2xl overflow-hidden shadow-2xl">
+                <img
+                  src={filtered[lightboxIndex].src}
+                  alt={filtered[lightboxIndex].alt}
+                  className="w-full h-auto max-h-[75vh] object-contain bg-black"
+                />
+              </div>
+              <div className="text-center mt-4">
+                <span className="text-orange text-xs font-bold tracking-widest uppercase">
+                  {filtered[lightboxIndex].cat}
+                </span>
+                <p className="text-white text-sm mt-1">{filtered[lightboxIndex].alt}</p>
+              </div>
+            </motion.div>
+
+            <button
+              onClick={(e) => { e.stopPropagation(); stepLightbox(1) }}
+              aria-label="Next photo"
+              className="absolute right-4 md:right-8 w-11 h-11 rounded-full bg-white/10 hover:bg-orange text-white flex items-center justify-center transition-colors"
+            >
+              <ChevronRight size={22} />
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   )
 }

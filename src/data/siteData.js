@@ -3,7 +3,6 @@ export const NAV_LINKS = [
   { label: 'About Us', to: '/about' },
   { label: 'Services', to: '/services' },
   { label: 'Industries', to: '/industries' },
-  { label: 'Branches', to: '/branches' },
   { label: 'Gallery', to: '/gallery' },
   { label: 'Contact Us', to: '/contact' },
 ]
@@ -12,7 +11,7 @@ export const CONTACT = {
   phone1: '63889 18194',
   phone2: '95942 42996',
   email: 'cargoelite6@gmail.com',
-  address: 'Shop No. 68, Radha Krishna SRA DDA Ltd. Bldg, Next to Labhari Empire, New Link Road, Jogeshwari (West), Mumbai - 400102.',
+  address: 'Shop No. 09, Roshan Nagar SRA CHS Ltd. Building, Next to Lashkaria Empress, New Link Road, Jogeshwari West, Mumbai – 400102, Maharashtra.',
   hours: 'Mon - Sun | 24x7 Open',
 }
 
@@ -77,17 +76,27 @@ export const WHY_CHOOSE_US = [
 ]
 
 export const STATS = [
-  { value: '15+', label: 'Years of Experience', icon: 'Users' },
-  { value: '10,000+', label: 'Happy Customers', icon: 'Smile' },
-  { value: '20,000+', label: 'Successful Moves', icon: 'PackageCheck' },
+  { value: '10+', label: 'Years of Experience', icon: 'Users' },
+  { value: '5,000+', label: 'Happy Customers', icon: 'Smile' },
+  { value: '10,000+', label: 'Successful Moves', icon: 'PackageCheck' },
   { value: '24/7', label: 'Customer Support', icon: 'Headphones' },
-  { value: '500+', label: 'Cities Served', icon: 'MapPin' },
+  { value: '200+', label: 'Cities Served', icon: 'MapPin' },
 ]
+
+export const VALUES = [
+  { title: 'Customer First', desc: 'We put our customers at the heart of everything we do.', icon: 'UserCheck' },
+  { title: 'Integrity', desc: 'Honest, transparent and ethical in all our dealings.', icon: 'ShieldCheck' },
+  { title: 'Commitment', desc: 'Dedicated to delivering on our promises every time.', icon: 'Target' },
+  { title: 'Safety', desc: 'Your belongings are treated with utmost care and safety.', icon: 'HeartHandshake' },
+  { title: 'Excellence', desc: 'Continuously improving to provide the best moving experience.', icon: 'TrendingUp' },
+]
+
+export const GALLERY_CATEGORIES = ['All', 'Packing & Moving', 'Our Fleet', 'Warehouse', 'Happy Customers', 'Team', 'Office']
 
 export const TESTIMONIALS = [
   { name: 'Rajesh Kumar', city: 'Mumbai', text: 'Excellent service! The team was very professional and handled everything with care.' },
-  { name: 'Priya Sharma', city: 'Pune', text: 'My office relocation was so smooth. Zero downtime and great support.' },
-  { name: 'Amit Verma', city: 'Delhi', text: 'Affordable, reliable and on-time delivery. Highly recommended!' },
+  { name: 'Priya Sharma', city: 'Mumbai', text: 'My office relocation was so smooth. Zero downtime and great support.' },
+  { name: 'Amit Verma', city: 'Mumbai', text: 'Affordable, reliable and on-time delivery. Highly recommended!' },
 ]
 
 export const BRANDS = ['TATA', 'Infosys', 'Wipro', 'Reliance', 'HDFC BANK', 'Asian Paints', 'Marriott', 'Apollo']
@@ -100,25 +109,16 @@ export const FAQS = [
   { q: 'Can I track my shipment?', a: 'Absolutely — every shipment comes with real-time GPS tracking so you always know where your goods are.' },
 ]
 
-export const BRANCHES = [
-  'Mumbai', 'Pune', 'Delhi', 'Ahmedabad', 'Surat', 'Chennai', 'Kolkata',
+export const JOURNEY = [
+  { year: '2016', title: 'The Beginning', desc: 'Started our journey with a small team and big dreams of redefining relocation.', icon: 'Flag' },
+  { year: '2018', title: 'Going Regional', desc: 'Expanded services to major cities across Maharashtra & Gujarat.', icon: 'Package' },
+  { year: '2020', title: 'Pan India Reach', desc: 'Built a strong nationwide network covering 100+ cities.', icon: 'Truck' },
+  { year: '2022', title: '5,000+ Happy Customers', desc: 'Crossed a major milestone in trust and customer satisfaction.', icon: 'Users' },
+  { year: '2024', title: 'Modern Fleet', desc: 'Upgraded to a modern, GPS-enabled fleet for real-time tracking.', icon: 'Truck' },
+  { year: '2026', title: '10 Years Strong', desc: 'A decade of trust — 5,000+ successful moves and counting.', icon: 'Trophy' },
+]
+
+export const SERVICE_CITIES = [
+  'Delhi', 'Pune', 'Ahmedabad', 'Surat', 'Chennai', 'Kolkata',
   'Bengaluru', 'Hyderabad', 'Jaipur', 'Lucknow', 'Patna', 'And More',
 ]
-
-export const VALUES = [
-  { title: 'Customer First', desc: 'We put our customers at the heart of everything we do.', icon: 'UserCheck' },
-  { title: 'Integrity', desc: 'Honest, transparent and ethical in all our dealings.', icon: 'ShieldCheck' },
-  { title: 'Commitment', desc: 'Dedicated to delivering on our promises every time.', icon: 'Target' },
-  { title: 'Safety', desc: 'Your belongings are treated with utmost care and safety.', icon: 'HeartHandshake' },
-  { title: 'Excellence', desc: 'Continuously improving to provide the best moving experience.', icon: 'TrendingUp' },
-]
-
-export const JOURNEY = [
-  { year: '2008', desc: 'Started our journey with a small team and big dreams.', icon: 'Flag' },
-  { year: '2012', desc: 'Expanded services to major cities across India.', icon: 'Package' },
-  { year: '2016', desc: 'Reached 10,000+ happy customers milestone.', icon: 'Users' },
-  { year: '2020', desc: 'Strengthened pan India network with modern fleets.', icon: 'Truck' },
-  { year: '2024', desc: 'Continuing our mission to deliver excellence in every move.', icon: 'Trophy' },
-]
-
-export const GALLERY_CATEGORIES = ['All', 'Packing & Moving', 'Our Fleet', 'Warehouse', 'Happy Customers', 'Team', 'Office']

@@ -1,10 +1,18 @@
 import { NavLink } from 'react-router-dom'
 import { Truck, Phone, Mail, MapPin, Facebook, Instagram, Twitter, Youtube } from 'lucide-react'
 import { CONTACT } from '../data/siteData'
+import logo from '../assets/Logo.png'
 
 const quickLinks = ['Home', 'About Us', 'Services', 'Industries', 'Branches', 'Gallery', 'Contact Us']
 const quickPaths = ['/', '/about', '/services', '/industries', '/branches', '/gallery', '/contact']
 const ourServices = ['Household Relocation', 'Office Shifting', 'Car Transportation', 'Bike Transportation', 'Warehousing', 'International Moving']
+
+const socialLinks = [
+  { Icon: Facebook, href: 'https://www.facebook.com/share/1936Y4u5y9/' },
+  { Icon: Instagram, href: 'https://www.instagram.com/elitecargopackersandmovers06?utm_source=qr&igsh=YmlmNmJwenBoamlm' },
+  { Icon: Twitter, href: '#' },
+  { Icon: Youtube, href: '#' },
+]
 
 export default function Footer() {
   return (
@@ -12,9 +20,7 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-6 lg:px-10 py-14 grid grid-cols-2 md:grid-cols-5 gap-10">
         <div className="col-span-2">
           <div className="flex items-center gap-2.5 mb-4">
-            <div className="w-9 h-9 rounded-lg bg-white/10 flex items-center justify-center">
-              <Truck className="text-orange" size={18} />
-            </div>
+            <img src={logo} alt="Elite Cargo Packers & Movers logo" className="h-10 w-auto object-contain" />
             <div>
               <div className="font-display font-extrabold text-white text-lg">ELITE CARGO</div>
               <div className="text-[9px] tracking-[0.2em] text-gray-400 -mt-1">PACKERS & MOVERS</div>
@@ -22,8 +28,14 @@ export default function Footer() {
           </div>
           <p className="text-sm text-gray-400 max-w-xs">Your trusted partner for safe, secure and reliable relocation services across India.</p>
           <div className="flex gap-3 mt-5">
-            {[Facebook, Instagram, Twitter, Youtube].map((Icon, i) => (
-              <a key={i} href="#" className="w-9 h-9 rounded-full border border-white/15 flex items-center justify-center hover:bg-orange hover:border-orange transition-colors">
+            {socialLinks.map(({ Icon, href }, i) => (
+              <a
+                key={i}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-9 h-9 rounded-full border border-white/15 flex items-center justify-center hover:bg-orange hover:border-orange transition-colors"
+              >
                 <Icon size={15} />
               </a>
             ))}

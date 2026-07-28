@@ -6,9 +6,10 @@ import Home from './pages/Home'
 import About from './pages/About'
 import Services from './pages/Services'
 import Industries from './pages/Industries'
-import Branches from './pages/Branches'
+
 import Gallery from './pages/Gallery'
 import Contact from './pages/Contact'
+import FloatingButtons from './components/FloatingButtons'
 
 function App() {
   return (
@@ -21,12 +22,13 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/services" element={<Services />} />
           <Route path="/industries" element={<Industries />} />
-          <Route path="/branches" element={<Branches />} />
+          {/* <Route path="/branches" element={<Branches />} /> */}
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/contact" element={<Contact />} />
         </Routes>
       </main>
       <Footer />
+      <FloatingButtons />
     </div>
   )
 }

@@ -117,24 +117,56 @@ export default function About() {
         </div>
       </section>
 
-      {/* JOURNEY */}
-      <section className="py-20 bg-slate-50 overflow-hidden">
-        <div className="max-w-6xl mx-auto px-6 text-center mb-14">
+      {/* JOURNEY — zigzag timeline, alternating card heights */}
+      <section className="py-24 bg-slate-50 overflow-hidden relative">
+        <div className="max-w-6xl mx-auto px-6 text-center mb-16">
           <span className="text-orange text-xs font-bold tracking-widest">OUR JOURNEY</span>
-          <h2 className="font-display text-3xl font-bold text-navy mt-2">Growing Stronger Every Day</h2>
+          <h2 className="font-display text-3xl font-bold text-navy mt-2">A Decade of Trust</h2>
+          <p className="text-gray-500 text-sm mt-3 max-w-md mx-auto">
+            From a small team in 2016 to a name Mumbai relies on — here's how we grew.
+          </p>
         </div>
-        <div className="max-w-6xl mx-auto px-6 relative">
-          <div className="hidden md:block absolute top-7 left-0 right-0 h-px border-t-2 border-dashed border-navy/20" />
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
-            {JOURNEY.map((j, i) => (
-              <Reveal key={j.year} delay={i * 0.1} className="text-center relative">
-                <div className="w-14 h-14 mx-auto rounded-full bg-navy text-white flex items-center justify-center mb-4 relative z-10">
-                  <Icon name={j.icon} size={22} />
+
+        <div className="max-w-4xl mx-auto px-6 relative">
+          {/* center vertical line */}
+          <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-[2px] -translate-x-1/2 bg-gradient-to-b from-orange/10 via-orange/40 to-orange/10" />
+
+          <div className="flex flex-col gap-2 md:gap-0">
+            {JOURNEY.map((j, i) => {
+              const isLeft = i % 2 === 0
+              return (
+                <div
+                  key={j.year}
+                  className={`relative md:grid md:grid-cols-2 md:gap-10 items-center ${i !== 0 ? 'md:-mt-6' : ''}`}
+                >
+                  {/* center node */}
+                  <div className="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 w-4 h-4 rounded-full bg-orange ring-4 ring-orange/20" />
+
+                  {/* Card side */}
+                  <div className={isLeft ? 'md:col-start-1 md:pr-4' : 'md:col-start-2 md:pl-4'}>
+                    <Reveal
+                      delay={i * 0.12}
+                      className={`
+                        ${isLeft ? 'md:ml-auto md:text-right' : ''}
+                        bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl
+                        transition-all duration-300 hover:-translate-y-1.5 p-6 my-3
+                        ${i % 3 === 0 ? 'md:py-8' : i % 3 === 1 ? 'md:py-6' : 'md:py-10'}
+                        max-w-sm w-full
+                      `}
+                    >
+                      <div className={`flex items-center gap-3 mb-3 ${isLeft ? 'md:flex-row-reverse' : ''}`}>
+                        <div className="w-11 h-11 shrink-0 rounded-xl bg-navy text-white flex items-center justify-center">
+                          <Icon name={j.icon} size={20} />
+                        </div>
+                        <p className="font-display font-extrabold text-orange text-2xl">{j.year}</p>
+                      </div>
+                      <p className="font-semibold text-navy text-sm mb-1.5">{j.title}</p>
+                      <p className="text-xs text-gray-500 leading-relaxed">{j.desc}</p>
+                    </Reveal>
+                  </div>
                 </div>
-                <p className="font-display font-bold text-orange text-lg mb-1.5">{j.year}</p>
-                <p className="text-xs text-gray-500 leading-relaxed">{j.desc}</p>
-              </Reveal>
-            ))}
+              )
+            })}
           </div>
         </div>
       </section>
