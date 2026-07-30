@@ -14,6 +14,17 @@ import gallery7 from '../assets/gallery-7.png'
 import gallery8 from '../assets/gallery-8.png'
 import gallery9 from '../assets/gallery-9.png'
 import gallery10 from '../assets/gallery-10.png'
+import gallery11 from '../assets/gallery11.png'
+import gallery12 from '../assets/gallery12.png'
+import gallery13 from '../assets/gallery13.png'
+import gallery14 from '../assets/gallery14.png'
+import gallery15 from '../assets/gallery15.png'
+import gallery16 from '../assets/gallery16.png'
+import gallery17 from '../assets/gallery17.png'
+import gallery18 from '../assets/gallery18.png'
+import gallery19 from '../assets/gallery19.png'
+import gallery20 from '../assets/gellery20.png'
+import gallery21 from '../assets/gellery21.png'
 import { GALLERY_CATEGORIES } from '../data/siteData'
 
 const PHOTOS = [
@@ -27,6 +38,17 @@ const PHOTOS = [
   { src: gallery8, cat: 'Office', alt: 'Office relocation in progress' },
   { src: gallery9, cat: 'Happy Customers', alt: 'Staff greeting happy customers' },
   { src: gallery10, cat: 'Team', alt: 'Elite Cargo team group photo' },
+  { src: gallery11, cat: 'Packing & Moving', alt: 'Wrapped furniture pieces ready for pickup outside building' },
+  { src: gallery12, cat: 'Our Fleet', alt: 'Wooden crate being loaded into transport truck' },
+  { src: gallery13, cat: 'Packing & Moving', alt: 'Furniture wrapped in red packing material indoors' },
+  { src: gallery14, cat: 'Warehouse', alt: 'Stacked wrapped goods at warehouse loading area' },
+  { src: gallery15, cat: 'Warehouse', alt: 'Sealed cartons and wrapped items stored indoors' },
+  { src: gallery16, cat: 'Our Fleet', alt: 'Packed boxes and furniture staged in parking area' },
+  { src: gallery17, cat: 'Packing & Moving', alt: 'Wrapped furniture lined up on wooden deck' },
+  { src: gallery18, cat: 'Our Fleet', alt: 'Truck interior loaded with wrapped household goods' },
+  { src: gallery19, cat: 'Our Fleet', alt: 'Shipping container packed with wrapped cargo' },
+  { src: gallery20, cat: 'Warehouse', alt: 'Cartons stacked outside storage shutter' },
+  { src: gallery21, cat: 'Our Fleet', alt: 'Two-wheeler wrapped and ready for relocation' },
 ]
 
 export default function Gallery({ scrollToSection }) {
